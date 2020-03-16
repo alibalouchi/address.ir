@@ -52,6 +52,7 @@ const CardsList = (props) => {
         })))
       })
       .then(() => {
+        setSkip(limit + skip)
         setCards(newCards)
         setIsLoading(false)
       })
