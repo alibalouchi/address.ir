@@ -99,7 +99,7 @@ const Card = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.topImage}>
-        <img src={props.picture.thumbnail ? 'https://address.ir' + props.picture.thumbnail : 'https://address.ir' + props.picture.kitchen} />
+        <img src={props.picture.thumbnail ? 'https://address.ir' + props.picture.thumbnail : (props.picture.kitchen ? 'https://address.ir' + props.picture.kitchen : '')} />
         <h3>{props.district}</h3>
         <p>{props.time}</p>
         <div className={classes.bookmark}>

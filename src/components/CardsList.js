@@ -23,9 +23,12 @@ const CardsList = (props) => {
   }, [])
 
   useEffect(() => {
+    setIsLoading(true)
     setHasPicture(props.hasPicture);
     setCards([]);
     loadCards();
+    setSkip(0)
+    return setIsLoading(false)
   }, [props.hasPicture , hasPicture])
 
   const loadCards = () => {
@@ -46,9 +49,9 @@ const CardsList = (props) => {
           room: card.room_qty,
           area: card.unit_area_extent,
         }))
-        setIsLoading(false)
         let newCards = [...cards, ...nextCards]
         setCards(newCards)
+        setIsLoading(false)
       })
       .catch((err) => {
         setError(err.message)
@@ -57,25 +60,33 @@ const CardsList = (props) => {
   }
 
   document.addEventListener("scroll", () => {
-    if (error || isLoading) return;
+    if (error) return;
 
-    if (
-      window.innerHeight + document.documentElement.scrollTop
-      >= document.documentElement.offsetHeight - 100
-    ) {
+    if (window.innerHeight + document.documentElement.scrollTop
+      >= document.documentElement.offsetHeight - 50 && isLoading
+    ){
       let newSkip = skip + limit
       setSkip(newSkip);
       loadCards()
+      setIsLoading(false)
+    }
+
+    if (
+      window.innerHeight + document.documentElement.scrollTop
+      >= document.documentElement.offsetHeight - 50
+    ) {
+      setIsLoading(true)
     }
   }
   )
+
+  console.log(cards, hasPicture)
 
   const classes = useStyles()
 
     return <div className={classes.container}>
       {cards.map(card => {
         return <Card
-          key={card.id}
           picture={card.picture} 
           district={card.district} 
           time={card.time}
