@@ -32,10 +32,11 @@ const CardsList = (props) => {
   }, [props.hasPicture , hasPicture])
 
   const loadCards = () => {
+    let newCards = [...cards]
     setIsLoading(true);
       axios.get('https://address.ir/rest/tgr/v2/catalogs/search/' + skip + '/' + limit + '?check_count=true&catalog_type=rent&marketing_url=8a2c81ee87ff530fdef752ca6654beb8' + (hasPicture ? '&has_picture=true' : ''))
       .then((data) => {
-        const nextCards = data.data.data.map(card => ({
+        const nextCards = data.data.data.map(card => (newCards.push({
           picture: {
             thumbnail: card.thumbnail_img,
             saloon: card.saloons_img,
@@ -48,8 +49,9 @@ const CardsList = (props) => {
           monthly_rent: card.monthly_rent,
           room: card.room_qty,
           area: card.unit_area_extent,
-        }))
-        let newCards = [...cards, ...nextCards]
+        })))
+      })
+      .then(() => {
         setCards(newCards)
         setIsLoading(false)
       })
