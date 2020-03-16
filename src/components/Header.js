@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {createUseStyles} from 'react-jss'
 
 const useStyles = createUseStyles({
@@ -56,9 +56,9 @@ const Header = (props) => {
 
   const classes = useStyles()
 
-  if(picture != props.hasPicture){
+  useEffect(() => {
     props.setHasPicture(picture)
-  }
+  }, [picture])
 
   return (
     <div className={classes.header}>

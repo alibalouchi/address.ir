@@ -17,7 +17,7 @@ const useStyles = createUseStyles({
 
 const App = () => {
 
-  const [hasPicture, setHasPicture] = useState(true)
+  const [hasPicture, setHasPicture] = useState(false)
 
     return (
       <div>

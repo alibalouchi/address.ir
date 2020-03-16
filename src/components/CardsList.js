@@ -11,12 +11,12 @@ const useStyles = createUseStyles({
 
 const CardsList = (props) => {
 
-  const [start, setStart] = useState(0)
+  const [skip, setSkip] = useState(0)
   const [limit, setLimit] = useState(10)
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [cards, setCards] = useState([])
-  const [hasPicture, setHasPicture] = useState(true)
+  const [hasPicture, setHasPicture] = useState(false)
 
   useEffect(() => {
     loadCards()
@@ -26,11 +26,11 @@ const CardsList = (props) => {
     setHasPicture(props.hasPicture);
     setCards([]);
     loadCards();
-  }, [props.hasPicture])
+  }, [props.hasPicture , hasPicture])
 
   const loadCards = () => {
     setIsLoading(true);
-      axios.get('https://address.ir/rest/tgr/v2/catalogs/search/' + start + '/' + limit + '?check_count=true&catalog_type=rent&marketing_url=8a2c81ee87ff530fdef752ca6654beb8' + (hasPicture ? '&has_picture=true' : ''))
+      axios.get('https://address.ir/rest/tgr/v2/catalogs/search/' + skip + '/' + limit + '?check_count=true&catalog_type=rent&marketing_url=8a2c81ee87ff530fdef752ca6654beb8' + (hasPicture ? '&has_picture=true' : ''))
       .then((data) => {
         const nextCards = data.data.data.map(card => ({
           picture: {
@@ -63,8 +63,8 @@ const CardsList = (props) => {
       window.innerHeight + document.documentElement.scrollTop
       >= document.documentElement.offsetHeight - 100
     ) {
-      let newStart = start + limit
-      setStart(newStart);
+      let newSkip = skip + limit
+      setSkip(newSkip);
       loadCards()
     }
   }
