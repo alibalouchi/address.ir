@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Header from './components/Header';
+import CardsList from './components/CardsList';
+import Footer from './components/Footer'
+import { createUseStyles } from 'react-jss'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const useStyles = createUseStyles({
+  '@font-face': {
+    fontFamily: 'Shabnam',
+    src: 'url(./fonts/Shabnam.57960934.woff2)'
+  },
+  container: {
+    fontFamily: 'Shabnam'
+  }
+})
+
+const App = () => {
+
+  const [hasPicture, setHasPicture] = useState(true)
+
+    return (
+      <div>
+        <Header hasPicture={hasPicture} setHasPicture={setHasPicture} />
+        <CardsList hasPicture={hasPicture} setHasPicture={setHasPicture} />
+        <Footer />
+      </div>
   );
-}
+    }
 
 export default App;
