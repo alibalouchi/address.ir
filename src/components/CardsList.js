@@ -83,8 +83,6 @@ const CardsList = (props) => {
   }
   )
 
-  console.log(cards, hasPicture)
-
   const classes = useStyles()
 
     return <div className={classes.container}>
